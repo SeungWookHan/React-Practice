@@ -1,19 +1,22 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import RowItem from "./RowItem";
 
 function App() {
+  const count = useRef(0);
   const [list, setList] = useState([]);
-  const [isChecked, setIsChecked] = useState([]);
 
   const handleAddRow = (e) => {
     e.preventDefault();
     const newRow = {
+      idx: count.current,
       shopNm: "",
       shopTel: "",
       shopAddr: "",
       shopBrn: "",
+      checked: false,
     };
+    count.current = count.current + 1;
     setList([...list, newRow]);
   };
 
@@ -27,14 +30,7 @@ function App() {
 
   const handleDelRow = (e) => {
     e.preventDefault();
-    setList(list.filter((data, i) => !isChecked[i]));
-    setIsChecked([]);
-  };
-
-  const handleCheckRow = (e) => {
-    const index = parseInt(e.target.name);
-    isChecked[index] = !isChecked[index];
-    setIsChecked([...isChecked]);
+    setList(list.filter((data) => !data.checked));
   };
 
   return (
@@ -48,10 +44,10 @@ function App() {
       </button>
       {list.map((row, i) => (
         <RowItem
-          key={i}
+          key={row.idx}
+          row={row}
           rowNum={i}
-          isChecked={isChecked[i]}
-          onCheckRow={handleCheckRow}
+          isChecked={row.checked}
           onEdit={handleListEdit}
         />
       ))}

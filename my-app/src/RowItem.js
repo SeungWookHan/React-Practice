@@ -1,6 +1,6 @@
 import React from "react";
 
-function RowItem({ rowNum, isChecked, onCheckrow, onEdit }) {
+function RowItem({ row, rowNum, isChecked, onCheckrow, onEdit }) {
   const handleAmellCheck = (e) => {
     onCheckrow(e);
   };
@@ -10,6 +10,7 @@ function RowItem({ rowNum, isChecked, onCheckrow, onEdit }) {
     const value = e.target.value;
     onEdit(rowNum, name, value);
   };
+
   return (
     <tr>
       <td>
@@ -17,20 +18,40 @@ function RowItem({ rowNum, isChecked, onCheckrow, onEdit }) {
           type="checkbox"
           name={rowNum}
           checked={isChecked}
-          onChange={onCheckrow}
+          onChange={() => onEdit(rowNum, "checked", !isChecked)}
         />
       </td>
       <td>
-        <input type="text" name="shopNm" onChange={handleInputChange} />
+        <input
+          type="text"
+          name="shopNm"
+          onChange={handleInputChange}
+          value={row.shopNm}
+        />
       </td>
       <td>
-        <input type="text" name="shopTel" onChange={handleInputChange} />
+        <input
+          type="text"
+          name="shopTel"
+          onChange={handleInputChange}
+          value={row.shopTel}
+        />
       </td>
       <td>
-        <input type="text" name="shopAddr" onChange={handleInputChange} />
+        <input
+          type="text"
+          name="shopAddr"
+          onChange={handleInputChange}
+          value={row.shopAddr}
+        />
       </td>
       <td>
-        <input type="text" name="shopBrn" onChange={handleInputChange} />
+        <input
+          type="text"
+          name="shopBrn"
+          onChange={handleInputChange}
+          value={row.shopBrn}
+        />
       </td>
     </tr>
   );
